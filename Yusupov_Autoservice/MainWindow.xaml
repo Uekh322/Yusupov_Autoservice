@@ -1,0 +1,25 @@
+﻿<Window x:Class="Yusupov_Autoservice.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Yusupov_Autoservice"
+        mc:Ignorable="d"
+        Title="Юсупов АвтоСервис" Height="450" Width="800" FontFamily="Tw Cen MT" Icon="/assets/service_logo.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="147*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Image Source="/assets/service_logo.png" HorizontalAlignment="Left" Grid.ColumnSpan="2"></Image>
+        <TextBlock Text="Услуги Автосервиса" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="198,0,0,0"></TextBlock>
+        <Frame Grid.Row="1" Name="MainFrame" ContentRendered="MainFrame_ContentRendered" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2" ></Frame>
+        <Button Content="Назад" Name="BtnBack" HorizontalAlignment="Left" 
+                Click="BtnBack_Click" Grid.Column="1" Margin="555,22,0,23"></Button>
+    </Grid>
+</Window>
