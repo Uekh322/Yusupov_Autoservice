@@ -28,6 +28,12 @@ namespace Yusupov_Autoservice
         public decimal Cost { get; set; }
         public double Discount { get; set; }
         public string Description { get; set; }
+
+        public int DiscountInt { get
+            {
+                return (int)(Discount * 100);
+            }
+        }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientService> ClientService { get; set; }
