@@ -32,9 +32,15 @@ namespace Yusupov_Autoservice
         public double Discount { get; set; }
         public string Description { get; set; }
 
-        public int DiscountInt { get
+        public int DiscountInt 
+        { 
+            get
             {
                 return (int)(Discount * 100);
+            }
+            set
+            {
+                Discount = value / 100.0;
             }
         }
     

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Yusupov_Autoservice"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ServicePage" FontFamily="Tw Cen MT">
+      Title="ServicePage" FontFamily="Tw Cen MT" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -60,6 +60,8 @@
                          Width="300" FontSize="20" Checked="RButtonDown_Checked"
                          Name="RButtonDown"></RadioButton>
         </StackPanel>
+        <Button Content="Добавить" Name="AddButton" Click="AddButton_Click"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"></Button>
         <ListView Name="ServiceListView" Grid.Row="2">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -80,7 +82,7 @@
                                 <Binding Path="MainImagePath">
                                     <Binding.TargetNullValue>
                                         <ImageSource>
-                                            assets/service_logo.png
+                                            /assets/picture.png
                                         </ImageSource>
                                     </Binding.TargetNullValue>
                                 </Binding>
@@ -91,7 +93,7 @@
                         <TextBlock Text="{Binding DurationInSeconds}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" FontSize="20"></TextBlock>
                         <TextBlock Text="{Binding DiscountInt, StringFormat=*скидка {0} % }" Opacity="{Binding DiscountInt}" Margin="5" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" FontSize="16"></TextBlock>
                         <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
-                            <Button Name="EditButton" Content="редактировать" Margin="2"></Button>
+                            <Button Name="EditButton" Content="редактировать" Margin="2" Click="EditButton_Click"></Button>
                             <Button Name="DeleteButton" Content="удалить" Margin="2" Click="DeleteButton_Click"></Button>
                         </StackPanel>
                     </Grid>

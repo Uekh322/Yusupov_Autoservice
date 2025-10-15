@@ -22,10 +22,6 @@ namespace Yusupov_Autoservice
     /// </summary>
     public partial class ServicePage : Page
     {
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new EditPage());
-        }
         public ServicePage()
         {
             InitializeComponent();
@@ -163,7 +159,22 @@ namespace Yusupov_Autoservice
             ChangePage(2, null);
         }
 
-
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new EditPage(null));
+        }
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new EditPage((sender as Button).DataContext as Service));
+        }
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                YusupovAutoserviceEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                ServiceListView.ItemsSource = YusupovAutoserviceEntities.GetContext().Service.ToList();
+            }
+        }
         private void ChangePage(int direction, int? selectedPage)
         {
             CurrentPageList.Clear();
