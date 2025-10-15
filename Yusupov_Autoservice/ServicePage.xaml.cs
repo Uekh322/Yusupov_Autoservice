@@ -167,6 +167,12 @@ namespace Yusupov_Autoservice
         {
             Manager.MainFrame.Navigate(new EditPage((sender as Button).DataContext as Service));
         }
+
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new SignUpPage((sender as Button).DataContext as Service));
+        }
+
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (Visibility == Visibility.Visible)
@@ -175,6 +181,8 @@ namespace Yusupov_Autoservice
                 ServiceListView.ItemsSource = YusupovAutoserviceEntities.GetContext().Service.ToList();
             }
         }
+
+
         private void ChangePage(int direction, int? selectedPage)
         {
             CurrentPageList.Clear();
