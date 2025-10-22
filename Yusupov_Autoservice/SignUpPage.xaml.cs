@@ -60,7 +60,9 @@ namespace Yusupov_Autoservice
                 return;
             }
 
-            _currentClientService.ClientID = ComboClient.SelectedIndex + 1;
+            //_currentClientService.ClientID = ComboClient.SelectedIndex + 1;
+            Client selectedClient = ComboClient.SelectedItem as Client;
+            _currentClientService.ClientID = selectedClient.ID;
             _currentClientService.ServiceID = _currentService.ID;
             _currentClientService.StartTime = Convert.ToDateTime(Startdate.Text + " " + TBStart.Text);
 
@@ -77,6 +79,66 @@ namespace Yusupov_Autoservice
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+        }
+
+        private void TBStart_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string s = TBStart.Text;
+
+            string[] start = s.Split(':');
+
+            if (start.Length != 2)
+            {
+                TBEnd.Text = "Неверный формат времени";
+                return;
+            }
+
+            if (s.Length != 5 || s[2] != ':')
+            {
+                TBEnd.Text = "Неверный формат времени (должно быть HH:mm)";
+                return;
+            }
+
+            if (!int.TryParse(start[0], out int startHour) || !int.TryParse(start[1], out int startMinute))
+            {
+                TBEnd.Text = "Неверный формат времени";
+                return;
+            }
+
+            // Добавляем проверки на часы и минуты
+            if (startHour < 0 || startHour > 23 || startMinute < 0 || startMinute > 59)
+            { 
+                TBEnd.Text = "Неверный формат времени (часы: 0-23, минуты: 0-59)";
+                return;
+            }
+
+            int totalMinutes = startHour * 60 + startMinute + _currentService.DurationInSeconds;
+            int EndHour = totalMinutes / 60;
+            int EndMin = totalMinutes % 60;
+
+            EndHour = EndHour % 24; // Это остается для обработки переполнения
+
+            s = EndHour.ToString("D2") + ":" + EndMin.ToString("D2");
+            TBEnd.Text = s;
+            
+            /*string s = TBStart.Text;
+
+            if (s.Length < 3 || !s.Contains(':'))
+                TBEnd.Text = "";
+            else
+            {
+                string[] start = s.Split(new char[] { ":" });
+                int startHour = Convert.ToInt32(start[0].ToString()) * 60;
+                int startMin = Convert.ToInt32(start[1].ToString());
+
+                int sum = startHour + startMin + _currentService.DurationInSeconds;
+
+                int EndHour = sum / 60;
+                int EndMin = sum % 60;
+                s = EndHour.ToString() + ":" + EndMin.ToString();
+                TBEnd.Text = s;
+            }*/
+
         }
     }
 }

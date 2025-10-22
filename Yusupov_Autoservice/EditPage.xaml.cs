@@ -43,12 +43,16 @@ namespace Yusupov_Autoservice
             if (_currentService.Cost == 0)
                 errors.AppendLine("Укажите стоимость услуги");
 
-            if (_currentService.DiscountInt < 0)
-                errors.AppendLine("Укажите скидку");
+            if (_currentService.DiscountInt < 0 || _currentService.DiscountInt > 100)
+                errors.AppendLine("Укажите скидку от 0 до 100");
 
-            if (_currentService.DurationInSeconds < 0)
+
+            if (_currentService.DurationInSeconds == 0)
                 errors.AppendLine("Укажите длительность услуги");
-            
+
+            if (_currentService.DurationInSeconds > 240 || _currentService.DurationInSeconds < 0)
+                errors.AppendLine("Длительность не может быть больше 240 минут или меньше 0");
+
             if (errors.Length > 0)
             {
                 MessageBox.Show(errors.ToString());
@@ -56,7 +60,18 @@ namespace Yusupov_Autoservice
             }
 
             if (_currentService.ID == 0)
+            {
+                var existingService = YusupovAutoserviceEntities.GetContext().Service
+                    .FirstOrDefault(p => p.Title == _currentService.Title);
+
+                if (existingService != null)
+                {
+                    MessageBox.Show("Уже существует такая услуга");
+                    return;
+                }
+
                 YusupovAutoserviceEntities.GetContext().Service.Add(_currentService);
+            }
 
             try
             {
